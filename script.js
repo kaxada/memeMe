@@ -5,12 +5,25 @@ let topTextInput,
     canvas,
     ctx;
 
-function generateMeme(img, topText, bottomText) {
+function generateMeme(img, topText) {
     canvas.width = img.width; // set canvas width to image width
     canvas.height = img.height; // set canvas height to image height
 
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
     ctx.drawImage(img, 0, 0); // draw the image starting from 0,0 of canvas
+
+    // DRAW THE TEXTS
+    let fontSize = canvas.width / 15;
+    ctx.font = fontSize + 'px Impact';
+    ctx.fillStyle = 'white';
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = fontSize / 15;
+    ctx.textAlign = 'center';
+
+
+    // draw the top text
+    ctx.textBaseline = 'top';
+    ctx.fillText(topText, canvas.width / 2, 0, canvas.width);
 }
 
 function init() {
@@ -31,7 +44,7 @@ function init() {
         reader.onload = function() {
             let img = new Image; // make a new image with Image object
             img.src = reader.result; // choose image source with src method
-            generateMeme(img); // the last two parameters get the values of the arguments
+            generateMeme(img, topTextInput.value); // the last two parameters get the values of the arguments
         };
         reader.readAsDataURL(imageInput.files[0]); // select image to draw on canvas
 
