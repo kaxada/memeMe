@@ -1,11 +1,13 @@
 let topTextInput,
     bottomTextInput,
+    topTextSizeInput,
+    bottomTextSizeInput,
     imageInput,
     generateBtn,
     canvas,
     ctx;
 
-function generateMeme(img, topText, bottomText) {
+function generateMeme(img, topText, bottomText, toptextSize, bottomtextSize) {
     canvas.width = img.width; // set canvas width to image width
     canvas.height = img.height; // set canvas height to image height
 
@@ -13,13 +15,14 @@ function generateMeme(img, topText, bottomText) {
     ctx.drawImage(img, 0, 0); // draw the image starting from 0,0 of canvas
 
     // DRAW THE TEXTS
-    let fontSize = canvas.width / 15;
-    ctx.font = fontSize + 'px Impact';
     ctx.fillStyle = 'white';
     ctx.strokeStyle = 'black';
-    ctx.lineWidth = fontSize / 15;
     ctx.textAlign = 'center';
 
+    // toptext size
+    fontSize = canvas.width * toptextSize;
+    ctx.font = fontSize + 'px Impact';
+    ctx.lineWidth = fontSize / 15;
 
     // draw the top text
     ctx.textBaseline = 'top';
@@ -29,6 +32,10 @@ function generateMeme(img, topText, bottomText) {
         ctx.strokeText(t, canvas.width / 2, i * fontSize, canvas.width)
     })
 
+    // bottomtext size
+    fontSize = canvas.width * bottomtextSize;
+    ctx.font = fontSize + 'px Impact';
+    ctx.lineWidth = fontSize / 15;
 
     // draw the bottom text
     ctx.textBaseline = 'bottom';
@@ -43,6 +50,8 @@ function init() {
     // grab the HTML tags 
     topTextInput = document.getElementById('top-text');
     bottomTextInput = document.getElementById('bottom-text');
+    topTextSizeInput = document.getElementById('top-text-size-input');
+    bottomTextSizeInput = document.getElementById('bottom-text-size-input');
     imageInput = document.getElementById('image-input');
     generateBtn = document.getElementById('generate-btn');
     canvas = document.getElementById('meme-canvas');
@@ -57,7 +66,7 @@ function init() {
         reader.onload = function() {
             let img = new Image; // make a new image with Image object
             img.src = reader.result; // choose image source with src method
-            generateMeme(img, topTextInput.value, bottomTextInput.value); // the last two parameters get the values of the arguments
+            generateMeme(img, topTextInput.value, bottomTextInput.value, topTextSizeInput.value, bottomTextSizeInput.value); // the last two parameters get the values of the arguments
         };
         reader.readAsDataURL(imageInput.files[0]); // select image to draw on canvas
 
