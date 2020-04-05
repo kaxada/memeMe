@@ -6,3 +6,10 @@
 * {
     font: inherit;
 }
+
+
+/* scale the meme image */
+
+#meme-canvas {
+    width: 300px;
+}
