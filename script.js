@@ -23,14 +23,20 @@ function generateMeme(img, topText, bottomText) {
 
     // draw the top text
     ctx.textBaseline = 'top';
-    ctx.fillText(topText, canvas.width / 2, 0,
-        canvas.width);
-    ctx.strokeText(canvas.width / 2, 0, canvas.width)
+    topText.split('\n').forEach(function(t, i) {
+        ctx.fillText(t, canvas.width / 2, i * fontSize,
+            canvas.width);
+        ctx.strokeText(t, canvas.width / 2, i * fontSize, canvas.width)
+    })
+
 
     // draw the bottom text
     ctx.textBaseline = 'bottom';
-    ctx.fillText(bottomText, canvas.width / 2, canvas.height, canvas.width);
-    ctx.strokeText(canvas.width / 2, canvas.height, canvas.width)
+    bottomText.split('\n').reverse().forEach(function(t, i) {
+        ctx.fillText(t, canvas.width / 2, canvas.height - i * fontSize,
+            canvas.width);
+        ctx.strokeText(t, canvas.width / 2, canvas.height - i * fontSize, canvas.width)
+    })
 }
 
 function init() {
